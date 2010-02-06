@@ -1,7 +1,7 @@
 package App::BundleDeps;
 use strict;
 use warnings;
-use CPAN;
+use CPAN ();
 use CPAN::HandleConfig;
 use ExtUtils::MakeMaker;
 use File::Spec;
@@ -45,15 +45,23 @@ sub bundle_from_meta {
 
     my $requires = $meta->{requires} || {};
     my $build_requires = $meta->{build_requires} || {};
-    $self->setup_deps( { %{ $requires }, %{ $build_requires } } );
+    my %deps = (%{ $requires }, %{ $build_requires });
+    $self->setup_deps(keys %deps);
 
     $self->bundle();
 }
 
-sub setup_deps {
-    my ($self, $deps) = @_;
+sub bundle_modules {
+    my($self, @modules) = @_;
 
-    my @deps = grep { $_ ne 'perl' } sort keys %$deps;
+    $self->setup_deps(@modules);
+    $self->bundle();
+}
+
+sub setup_deps {
+    my ($self, @deps) = @_;
+
+    @deps = grep { $_ ne 'perl' } sort @deps;
     $self->deps(\@deps);
 }
 
@@ -103,7 +111,7 @@ App::BundleDeps - Bundle All Your Module Deps In A local::lib Dir
     # or
 
     my @modules = ( $module1, $module2, $module3, ... );
-    App::BundleDeps->new()->bundle_modules( %modules );
+    App::BundleDeps->new()->bundle_modules( @modules );
 
 =head1 DESCRIPTION
 
