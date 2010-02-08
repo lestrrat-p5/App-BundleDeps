@@ -7,7 +7,7 @@ use ExtUtils::MakeMaker;
 use File::Spec;
 use local::lib ();
 
-our $VERSION = '0.00001';
+our $VERSION = '0.00002';
 
 sub new {
     my ($class, @args) = @_;
