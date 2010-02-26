@@ -11,6 +11,7 @@ install_script 'script/bundledeps';
 recommends 'YAML::XS';
 test_requires 'Test::More';
 
+tests 't/*.t';
 author_tests 'xt';
 
 WriteAll;
