@@ -1,6 +1,10 @@
 Changes
 =======
 
+0.00003 - 26 Feb 2010
+    - Now uses cpanminus
+    - Add xt tests
+
 0.00002 - 08 Feb 2010
     - Add 'bundledeps' script (miyagawa)
     - Fix some warnings / POD errors (miyagawa)

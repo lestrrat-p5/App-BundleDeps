@@ -6,7 +6,7 @@ use Cwd ();
 use ExtUtils::MakeMaker;
 use File::Spec;
 
-our $VERSION = '0.00002';
+our $VERSION = '0.00003';
 
 sub new {
     my ($class, @args) = @_;
