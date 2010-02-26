@@ -14,7 +14,8 @@ sub test_bundle ($) {
     my $file = (caller())[1];
     my $extlib = File::Spec->catfile($file . join("-", "", "extlib", time(), $$, rand() ) );
     my $app = App::BundleDeps->new(
-        extlib => $extlib
+        extlib => $extlib,
+        notest => 1,
     );
 
     $app->setup_deps( $module );

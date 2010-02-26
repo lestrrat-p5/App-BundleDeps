@@ -10,7 +10,11 @@ our $VERSION = '0.00003';
 
 sub new {
     my ($class, @args) = @_;
-    return bless { extlib => File::Spec->catdir(File::Spec->curdir, 'extlib'), @args}, $class;
+    return bless { 
+        extlib => File::Spec->catdir(File::Spec->curdir, 'extlib'),
+        notest => 1,
+        @args
+    }, $class;
 }
 
 # XXX - accessors inlined for minimal setup
@@ -18,6 +22,12 @@ sub extlib {
     my $self = shift;
     $self->{extlib} = shift if @_;
     return $self->{extlib};
+}
+
+sub notest {
+    my $self = shift;
+    $self->{notest} = shift if @_;
+    return $self->{notest};
 }
 
 sub deps {
@@ -87,7 +97,13 @@ sub bundle_deps {
     # Remove /opt from PATH: end users won't have ports
     $ENV{PATH} = join ":", grep !/^\/opt/, split /:/, $ENV{PATH};
 
-    system("cpanm", @{$self->deps});
+    my @cmd = ('cpanm');
+    if ($self->notest) {
+        push @cmd, '--notest';
+    }
+    push @cmd, @{ $self->deps };
+
+    system(@cmd);
 }
 
 1;
