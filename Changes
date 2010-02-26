@@ -1,6 +1,13 @@
 Changes
 =======
 
+0.00004 - 26 Feb 2010
+    - Allow installation to proceed without running tests
+      (if demamded)
+    - Require newest version of cpanminus (or download a newer
+      version from http://github.com/miyagawa/cpanminus.
+      0.99_06 was used for testing)
+
 0.00003 - 26 Feb 2010
     - Now uses cpanminus
     - Add xt tests
