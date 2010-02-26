@@ -5,7 +5,8 @@ all_from 'lib/App/BundleDeps.pm';
 
 requires 'local::lib';
 requires 'YAML';
-requires 'App::cpanminus';
+# versions below 1.00 will fail to install zipped archives.
+requires 'App::cpanminus' => '1.00';
 
 install_script 'script/bundledeps';
 recommends 'YAML::XS';
