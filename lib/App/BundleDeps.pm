@@ -1,11 +1,10 @@
 package App::BundleDeps;
 use strict;
 use warnings;
-use CPAN ();
-use CPAN::HandleConfig;
+use local::lib ();
+use Cwd ();
 use ExtUtils::MakeMaker;
 use File::Spec;
-use local::lib ();
 
 our $VERSION = '0.00002';
 
@@ -73,10 +72,8 @@ sub bundle {
 sub bundle_deps {
     my $self = shift;
 
-    CPAN::HandleConfig->load;
-
     $ENV{PERL5LIB} = ''; # detach existent local::lib
-    import local::lib '--self-contained', $self->extlib;
+    local::lib->setup_local_lib_for( Cwd::abs_path( $self->extlib ) );
 
     # wtf: ExtUtils::MakeMaker shipped with Leopard is old
     if ($ExtUtils::MakeMaker::VERSION < 6.31) {
@@ -90,7 +87,7 @@ sub bundle_deps {
     # Remove /opt from PATH: end users won't have ports
     $ENV{PATH} = join ":", grep !/^\/opt/, split /:/, $ENV{PATH};
 
-    CPAN::Shell->rematein("notest", "install", @{$self->deps});
+    system("cpanm", @{$self->deps});
 }
 
 1;
