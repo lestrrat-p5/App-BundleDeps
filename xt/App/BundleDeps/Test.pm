@@ -5,6 +5,7 @@ use base qw(Exporter);
 use App::BundleDeps;
 use File::Path;
 use File::Spec;
+use Test::More;
 
 our @EXPORT = qw(test_bundle);
 
