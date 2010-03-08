@@ -1,6 +1,9 @@
 Changes
 =======
 
+0.00006 - 09 Mar 2010
+    - Add --notest option to bundledeps command
+
 0.00005 - 06 Mar 2010
     - Decrease requirement for cpanminus, as 0.9910 already have zip
       support
