@@ -10,6 +10,7 @@ my $bundler = App::BundleDeps->new;
 my @modules;
 GetOptions(
     "extlib=s",     sub { $bundler->extlib($_[1]) },
+    "notest!",      sub { $bundler->notest($_[1]) },
     'M|modules=s@', sub { push @modules, $_[1] },
 );
 

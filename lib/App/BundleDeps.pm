@@ -97,7 +97,7 @@ sub bundle_deps {
     # Remove /opt from PATH: end users won't have ports
     $ENV{PATH} = join ":", grep !/^\/opt/, split /:/, $ENV{PATH};
 
-    my @cmd = ('cpanm');
+    my @cmd = ('cpanm', '--skip-installed');
     if ($self->notest) {
         push @cmd, '--notest';
     }
